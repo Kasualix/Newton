@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "me.kall.newton.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "newton.refmap.json",
+  "mixins": [
+    "MixinServerWorld"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
