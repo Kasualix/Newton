@@ -16,6 +16,7 @@ public class Newton {
     public static final Set<UUID> APPLES = new ObjectOpenHashSet<>();
     public static final Logger LOGGER = LogManager.getLogger("Newton");
 
+    @SuppressWarnings("all")
     public Newton() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG);
     }
