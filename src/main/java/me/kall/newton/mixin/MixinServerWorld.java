@@ -38,8 +38,9 @@ import java.util.function.Supplier;
 @ParametersAreNonnullByDefault
 @Mixin(ServerLevel.class)
 public abstract class MixinServerWorld extends Level {
-    protected MixinServerWorld(WritableLevelData pLevelData, ResourceKey<Level> pDimension, RegistryAccess pRegistryAccess, Holder<DimensionType> pDimensionTypeRegistration, Supplier<ProfilerFiller> pProfiler, boolean pIsClientSide, boolean pIsDebug, long pBiomeZoomSeed, int pMaxChainedNeighborUpdates) {
-        super(pLevelData, pDimension, pRegistryAccess, pDimensionTypeRegistration, pProfiler, pIsClientSide, pIsDebug, pBiomeZoomSeed, pMaxChainedNeighborUpdates);
+
+    protected MixinServerWorld(WritableLevelData pLevelData, ResourceKey<Level> pDimension, Holder<DimensionType> pDimensionTypeRegistration, Supplier<ProfilerFiller> pProfiler, boolean pIsClientSide, boolean pIsDebug, long pBiomeZoomSeed, int pMaxChainedNeighborUpdates) {
+        super(pLevelData, pDimension, pDimensionTypeRegistration, pProfiler, pIsClientSide, pIsDebug, pBiomeZoomSeed, pMaxChainedNeighborUpdates);
     }
 
     @Shadow @Nullable public abstract Entity getEntity(UUID pUniqueId);
@@ -48,7 +49,7 @@ public abstract class MixinServerWorld extends Level {
     @Unique private int newton$maxCount;
 
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isRandomlyTicking()Z", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void newton$onTickBlock(LevelChunk pChunk, int pRandomTickSpeed, CallbackInfo ci, ChunkPos chunkpos, boolean flag, int i, int j, ProfilerFiller profilerfiller, LevelChunkSection[] alevelchunksection, int l, LevelChunkSection levelchunksection, int j1, int k1, int l1, BlockPos blockpos1, BlockState blockstate) {
+    private void newton$onTickBlock(LevelChunk pChunk, int pRandomTickSpeed, CallbackInfo ci, ChunkPos chunkpos, boolean flag, int i, int j, ProfilerFiller profilerfiller, LevelChunkSection[] var8, int var9, int var10, LevelChunkSection levelchunksection, int l, int k, BlockPos blockpos1, BlockState blockstate {
         if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && blockstate.is(BlockTags.LEAVES)  && !blockstate.getValue(LeavesBlock.PERSISTENT) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
             int x = blockpos1.getX();
             int y = blockpos1.getY() - 1;
