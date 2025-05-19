@@ -3,6 +3,7 @@ package me.kall.newton.mixin;
 import me.kall.newton.Newton;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
@@ -46,7 +47,7 @@ public abstract class MixinServerWorld extends World {
 
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isRandomlyTicking()Z", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
     private void newton$onTickBlock(Chunk pChunk, int pRandomTickSpeed, CallbackInfo ci, ChunkPos chunkpos, boolean flag, int i, int j, IProfiler iprofiler, ChunkSection[] var8, int var9, int var10, ChunkSection chunksection, int k, int l, BlockPos blockpos1, BlockState blockstate) {
-        if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && BlockTags.LEAVES.contains(blockstate.getBlock()) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
+        if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && BlockTags.LEAVES.contains(blockstate.getBlock()) && !blockstate.getValue(LeavesBlock.PERSISTENT) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
             int x = blockpos1.getX();
             int y = blockpos1.getY() - 1;
             int z = blockpos1.getZ();
