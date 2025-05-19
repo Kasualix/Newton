@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -48,7 +49,7 @@ public abstract class MixinServerWorld extends Level {
 
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isRandomlyTicking()Z", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
     private void newton$onTickBlock(LevelChunk pChunk, int pRandomTickSpeed, CallbackInfo ci, ChunkPos chunkpos, boolean flag, int i, int j, ProfilerFiller profilerfiller, LevelChunkSection[] alevelchunksection, int l, LevelChunkSection levelchunksection, int j1, int k1, int l1, BlockPos blockpos1, BlockState blockstate) {
-        if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && blockstate.is(BlockTags.LEAVES) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
+        if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && blockstate.is(BlockTags.LEAVES)  && !blockstate.getValue(LeavesBlock.PERSISTENT) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
             int x = blockpos1.getX();
             int y = blockpos1.getY() - 1;
             int z = blockpos1.getZ();
