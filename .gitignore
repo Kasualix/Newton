@@ -1,6 +1,4 @@
-out
-.idea
-build
 .gradle
+build
+.idea
 run
-run-data

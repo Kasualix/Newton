@@ -1,0 +1,31 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "newton"
+version = "${version}"
+displayName = "Newton"
+authors = "Kasualix"
+description = '''
+Newton awoke in the woods and found himself surrounded by apples.
+'''
+#logoFile = ""
+
+[[dependencies.newton]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.newton]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "newton.mixins.json"
