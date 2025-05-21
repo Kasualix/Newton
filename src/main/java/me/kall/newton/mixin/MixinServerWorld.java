@@ -47,7 +47,7 @@ public abstract class MixinServerWorld extends Level {
 
     @Unique private int newton$maxCount;
 
-    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isRandomlyTicking()Z", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isRandomlyTicking()Z"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void newton$onTickBlock(LevelChunk pChunk, int pRandomTickSpeed, CallbackInfo ci, ChunkPos chunkpos, boolean flag, int i, int j, ProfilerFiller profilerfiller, LevelChunkSection[] alevelchunksection, int l, LevelChunkSection levelchunksection, int j1, int k1, int l1, BlockPos blockpos1, BlockState blockstate) {
         if (ThreadLocalRandom.current().nextInt(Newton.POSSIBILITY.get()) == 1 && blockstate.is(BlockTags.LEAVES)  && !blockstate.getValue(LeavesBlock.PERSISTENT) && Objects.equals(this.getBlockState(blockpos1.below()), Blocks.AIR.defaultBlockState())) {
             int x = blockpos1.getX();
